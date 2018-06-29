@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+
+    
+
+    
+    <title>方法参数的有效性检查 | One-Way Street</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="Work,Effective Java" />
+    
+    <meta name="keywords" content="Work,Effective Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="方法参数的有效性检查">
+<meta property="og:url" content="http://yoursite.com/2017/11/30/方法参数的有效性检查/index.html">
+<meta property="og:site_name" content="One-Way Street">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oq6lqcu6w.bkt.clouddn.com/sydney.jpg">
+<meta property="og:updated_time" content="2018-06-29T11:42:08.784Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="方法参数的有效性检查">
+<meta name="twitter:image" content="http://oq6lqcu6w.bkt.clouddn.com/sydney.jpg">
+    
+
+    
+        <link rel="alternate" href="/" title="One-Way Street" type="application/atom+xml" />
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.2.4/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">One-Way Street</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">Inici</a>
+                                </li>
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">Quant a</a>
+                                </li>
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="https://github.com">index.github</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Cercar" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'categories',
+            TAGS: 'etiquetes',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/工作总结/">工作总结</a>
+    </h1>
+</div>
+                        <div class="main-body-content">
+                            <article id="post-方法参数的有效性检查" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        方法参数的有效性检查
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2017/11/30/方法参数的有效性检查/" class="article-date">
+            <time datetime="2017-11-30T13:22:08.000Z" itemprop="datePublished">Nov 30 2017</time>
+        </a>
+    </div>
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Effective-Java/">Effective Java</a>, <a class="tag-link" href="/tags/Work/">Work</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p><img src="http://oq6lqcu6w.bkt.clouddn.com/sydney.jpg" alt="hexo:ssm1:au.jpeg"><br><a id="more"></a></p>
+<p>原创内容，转载请注明出处。</p>
+<p>本文为个人学习和总结，有不正确的内容欢迎指出。</p>
+<h1 id="关注点及参考"><a href="#关注点及参考" class="headerlink" title="关注点及参考"></a>关注点及参考</h1><ul>
+<li>Bean Validation, JSR303,349</li>
+<li><a href="http://beanvalidation.org/" target="_blank" rel="noopener">http://beanvalidation.org/</a></li>
+<li><a href="http://blog.csdn.net/xlgen157387/article/details/46848507" target="_blank" rel="noopener">http://blog.csdn.net/xlgen157387/article/details/46848507</a></li>
+</ul>
+<h1 id="参数校验"><a href="#参数校验" class="headerlink" title="参数校验"></a>参数校验</h1><p>最近版本测试的bug单里发现空指针的异常占比有点大，最头疼的报错就是”服务器错误”，告诉你后台错了，又没告诉你后台哪错了，尽管我已经尽可能在关键点打出日志，但是空指针的问题还是会经常出现。</p>
+<p>总结下来主要是这几种情况:</p>
+<ol>
+<li>方法入参的校验。（这种校验相对比较容易）</li>
+<li>调用他人接口返回值没有校验直接使用。（对接赢商通，在比较请求流水的时候，有些错误返回没有流水，直接拿来比较抛了空指针）</li>
+<li>组装参数后没有校验，调用他人接口被返回空指针异常。(除非接口会明确返回缺少的参数)</li>
+<li>有些跨越方法被传递的引用参数，没有进行校验。</li>
+<li>构造器的参数校验。<em>(Effective Java, Item 38 补充)</em></li>
+</ol>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><ul>
+<li><p>环境</p>
+<ul>
+<li>JDK1.7</li>
+<li><p>pom依赖</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;javax.el&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;javax.el-api&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.2.4&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.glassfish.web&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;javax.el&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.2.4&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.hibernate&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;hibernate-validator&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;5.4.1.Final&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>示例1（针对第1种情况）</p>
+<ul>
+<li>一般我都会在自己写的方法前两行，打印日志后接上参数校验的操作，校验到缺少参数直接抛给调用者。尤其是入参包含的域比较多的时候，这种校验会很有效。</li>
+<li><p>除了示例1的@NotNull，Bean Validation还提供其他校验，具体可以参见<a href="https://docs.jboss.org/hibernate/beanvalidation/spec/2.0/api/" target="_blank" rel="noopener">JavaDoc</a>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ValidatorClass</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> Validator validator = Validation.buildDefaultValidatorFactory().getValidator();</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Getter</span></span><br><span class="line">    <span class="meta">@Setter</span></span><br><span class="line">    <span class="meta">@NotNull</span>(message = <span class="string">"name不可为空"</span>)</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">check</span><span class="params">(Object object)</span> </span>&#123;</span><br><span class="line">    Set&lt;ConstraintViolation&lt;Object&gt;&gt; violations = validator.validate(object);</span><br><span class="line">    Iterator&lt;ConstraintViolation&lt;Object&gt;&gt; iterator = violations.iterator();</span><br><span class="line">    <span class="keyword">if</span> (iterator.hasNext()) &#123;</span><br><span class="line">        String errMessage = iterator.next().getMessage();</span><br><span class="line">        System.out.println(errMessage);</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> ValidationException(errMessage);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//实例化对象但不设置name</span></span><br><span class="line">    Person person = <span class="keyword">new</span> Person();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        check(person);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (ValidationException e) &#123;</span><br><span class="line">        <span class="comment">//输出“name不可为空”</span></span><br><span class="line">        System.out.println(e.getMessage());</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(<span class="string">"test1 passed"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//实例化对象且设置name</span></span><br><span class="line">    Person person = <span class="keyword">new</span> Person();</span><br><span class="line">    person.setName(<span class="string">"xhtc"</span>);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        check(person);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (ValidationException e) &#123;</span><br><span class="line">        System.out.println(e.getMessage());</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(<span class="string">"test2 passed"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    test1();</span><br><span class="line">    test2();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>示例2。（针对第2种，会出现两种情况，一是我自己写接收参数，我当然可以在自己的类里定义校验，并且在接收到参数后马上进行结果校验，但是往往对于接口返回结果的处理不是单一的，需要校验的参数也不一样。二是在三方包自带出参类，这样就无法在类里添加自定义注解进行校验。）</p>
+<ul>
+<li><p>如果是对于同一个类存在多种校验，可以使用group参数对校验进行分类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ValidatorClass4Group</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> Validator validator = Validation.buildDefaultValidatorFactory().getValidator();</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Getter</span> <span class="meta">@Setter</span></span><br><span class="line">    <span class="meta">@NotNull</span>(message = <span class="string">"name不可为空"</span>, groups = &#123;INFO.class, STUDENT.class, EMPLOYEE.class&#125;)</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Getter</span> <span class="meta">@Setter</span></span><br><span class="line">    <span class="meta">@NotNull</span>(message = <span class="string">"studentId不可为空"</span>, groups = &#123;INFO.class, STUDENT.class&#125;)</span><br><span class="line">    <span class="keyword">private</span> Integer studentId;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Getter</span> <span class="meta">@Setter</span></span><br><span class="line">    <span class="meta">@NotNull</span>(message = <span class="string">"employId不可为空"</span>, groups = &#123;INFO.class, EMPLOYEE.class&#125;)</span><br><span class="line">    <span class="keyword">private</span> Integer employId;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">check</span><span class="params">(Object object, Class&lt;?&gt;... groups)</span> </span>&#123;</span><br><span class="line">    Set&lt;ConstraintViolation&lt;Object&gt;&gt; violations = validator.validate(object, groups);</span><br><span class="line">    Iterator&lt;ConstraintViolation&lt;Object&gt;&gt; iterator = violations.iterator();</span><br><span class="line">    <span class="keyword">if</span> (iterator.hasNext()) &#123;</span><br><span class="line">        String errMessage = iterator.next().getMessage();</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> ValidationException(errMessage);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Person intern = <span class="keyword">new</span> Person();</span><br><span class="line">    intern.setName(<span class="string">"xhtc"</span>);</span><br><span class="line">    intern.setStudentId(<span class="number">1</span>);</span><br><span class="line">    intern.setEmployId(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        check(intern, INFO.class);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (ValidationException e) &#123;</span><br><span class="line">        System.out.println(e.getMessage());</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(<span class="string">"test1 passed"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Person student = <span class="keyword">new</span> Person();</span><br><span class="line">    student.setName(<span class="string">"xhtc"</span>);</span><br><span class="line">    student.setStudentId(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        check(student, STUDENT.class);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (ValidationException e) &#123;</span><br><span class="line">        System.out.println(e.getMessage());</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(<span class="string">"test2 passed"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test3</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Person employee = <span class="keyword">new</span> Person();</span><br><span class="line">    employee.setName(<span class="string">"xhtc"</span>);</span><br><span class="line">    employee.setEmployId(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        check(employee, EMPLOYEE.class);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (ValidationException e) &#123;</span><br><span class="line">        System.out.println(e.getMessage());</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(<span class="string">"test3 passed"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    test1();</span><br><span class="line">    test2();</span><br><span class="line">    test3();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">STUDENT</span> </span>&#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">EMPLOYEE</span> </span>&#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">INFO</span> </span>&#123;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果是三方包自带了返回参数的类，那么在使用域的时候一定要先进行有效性判断再使用。包括：</p>
+<ul>
+<li>!= null</li>
+<li>StringUtils.isNotEmpty()</li>
+<li>CollectionUtils.isNotEmpty()</li>
+<li>其他等等</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>第3种情况，我只想说开发的时候一定要养成好习惯，不管是别人调用自己的方法还是自己调用别人的方法，都要保证自己的代码足够严谨，如果别人的接口返回了有效性校验，这当然是非常好的，如果他没有，那么就必须保证自己传出的参数是正确的，这个情况同样可以用以上方法解决。问题在于程序员的惰性~，有时候写多了就不愿意去做这些校验了。</p>
+</li>
+<li><p>第4种情况，这种跨越方法传递同一个对象引用的情况往往发生在一个类拥有大量的域，它们又没有被适当地封装，只能在不同业务场景下传递引用来填塞对象的内容，虽然我的直觉告诉我这样做不好，但是项目里有很多这样的代码，如果非要进行参数检查或者分类参数检查，我更确信做好业务分类和封装能更好地解决这个问题。</p>
+</li>
+<li><p>第5种情况，这是Effective Java第38条提到的内容。目前在项目中直接用注解进行参数校验的写法比较多，但是在参数比较少，或者构造器参数比较少（4个参数或者更少）的情况下，直接在构造方法里进行参数校验会比注解校验效率更高，封装性也会更好，以后可以尝试这种做法。</p>
+</li>
+</ul>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://yoursite.com/2017/11/30/方法参数的有效性检查/" data-id="cjj063zn7001y7orw7p2235l2" class="article-share-link"><i class="fa fa-share"></i>Compartir</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>seguir:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/rayeden" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2017/12/13/支付模块总结/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">més nou</strong>
+        <p class="article-nav-title">
+        
+            支付模块总结
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2017/08/14/Java注解-学习总结/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">antic</strong>
+        <p class="article-nav-title">Java注解 学习总结</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/04/12/ignite固化内存-持久化-示例/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://oq6lqcu6w.bkt.clouddn.com/ignite-hero-image.jpg)" alt="ignite固化内存(持久化)示例" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/ignite/">ignite</a></p>
+                            <p class="item-title"><a href="/2018/04/12/ignite固化内存-持久化-示例/" class="title">ignite固化内存(持久化)示例</a></p>
+                            <p class="item-date"><time datetime="2018-04-12T11:14:08.000Z" itemprop="datePublished">Apr 12 2018</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/04/08/服务器OOM问题排查/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://oq6lqcu6w.bkt.clouddn.com/OOM.png)" alt="服务器OOM问题排查" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/ignite/">ignite</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/ignite/工作总结/">工作总结</a></p>
+                            <p class="item-title"><a href="/2018/04/08/服务器OOM问题排查/" class="title">服务器OOM问题排查</a></p>
+                            <p class="item-date"><time datetime="2018-04-08T12:04:50.000Z" itemprop="datePublished">Apr 8 2018</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/02/28/ignite运维-主从复制/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/ignite/">ignite</a></p>
+                            <p class="item-title"><a href="/2018/02/28/ignite运维-主从复制/" class="title">ignite运维-安全配置和主从复制</a></p>
+                            <p class="item-date"><time datetime="2018-02-28T06:16:11.000Z" itemprop="datePublished">Feb 28 2018</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/01/15/ignite安装和SpringData集成/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://oq6lqcu6w.bkt.clouddn.com/ignite-logo-3.jpg)" alt="ignite安装和SpringData集成" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/ignite/">ignite</a></p>
+                            <p class="item-title"><a href="/2018/01/15/ignite安装和SpringData集成/" class="title">ignite安装和SpringData集成</a></p>
+                            <p class="item-date"><time datetime="2018-01-15T01:57:01.000Z" itemprop="datePublished">Jan 15 2018</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/12/14/设计模式/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/读书笔记/">读书笔记</a></p>
+                            <p class="item-title"><a href="/2017/12/14/设计模式/" class="title">设计模式</a></p>
+                            <p class="item-date"><time datetime="2017-12-14T13:53:14.000Z" itemprop="datePublished">Dec 14 2017</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaWeb/">JavaWeb</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ignite/">ignite</a><span class="category-list-count">4</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ignite/工作总结/">工作总结</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/工作总结/">工作总结</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/读书笔记/">读书笔记</a><span class="category-list-count">3</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">arxius</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">4</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">etiquetes</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Effective-Java/">Effective Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HeadFirst设计模式/">HeadFirst设计模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/">SpringBoot</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Work/">Work</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ignite/">ignite</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mybatis/">mybatis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习实战/">机器学习实战</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/运维/">运维</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">etiqueta cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Effective-Java/" style="font-size: 10px;">Effective Java</a> <a href="/tags/HeadFirst设计模式/" style="font-size: 10px;">HeadFirst设计模式</a> <a href="/tags/Java/" style="font-size: 16.67px;">Java</a> <a href="/tags/Python/" style="font-size: 16.67px;">Python</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 10px;">SpringBoot</a> <a href="/tags/Web/" style="font-size: 16.67px;">Web</a> <a href="/tags/Work/" style="font-size: 13.33px;">Work</a> <a href="/tags/ignite/" style="font-size: 20px;">ignite</a> <a href="/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/tags/机器学习实战/" style="font-size: 16.67px;">机器学习实战</a> <a href="/tags/运维/" style="font-size: 10px;">运维</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">etiqueta cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Effective-Java/" style="font-size: 10px;">Effective Java</a> <a href="/tags/HeadFirst设计模式/" style="font-size: 10px;">HeadFirst设计模式</a> <a href="/tags/Java/" style="font-size: 16.67px;">Java</a> <a href="/tags/Python/" style="font-size: 16.67px;">Python</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 10px;">SpringBoot</a> <a href="/tags/Web/" style="font-size: 16.67px;">Web</a> <a href="/tags/Work/" style="font-size: 13.33px;">Work</a> <a href="/tags/ignite/" style="font-size: 20px;">ignite</a> <a href="/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/tags/机器学习实战/" style="font-size: 16.67px;">机器学习实战</a> <a href="/tags/运维/" style="font-size: 10px;">运维</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2018 理想主义和宅</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'http://yoursite.com/2017/11/30/方法参数的有效性检查/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

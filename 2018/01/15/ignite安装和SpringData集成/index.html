@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+
+    
+
+    
+    <title>ignite安装和SpringData集成 | One-Way Street</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="ignite" />
+    
+    <meta name="description" content="文章源码-c1_igniteStart Ignite安装使用版本：v_2.3.0 环境：一个server节点(Linux/Windows, IP:S.S.S.S), 一个client节点(IP:C.C.C.C) 目标：client节点集成SpringData，把数据网格存储到server内存。 下载安装包官网下载地址 apache-ignite-fabric-2.3.0-bin.zip 服务端节">
+<meta name="keywords" content="ignite">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ignite安装和SpringData集成">
+<meta property="og:url" content="http://yoursite.com/2018/01/15/ignite安装和SpringData集成/index.html">
+<meta property="og:site_name" content="One-Way Street">
+<meta property="og:description" content="文章源码-c1_igniteStart Ignite安装使用版本：v_2.3.0 环境：一个server节点(Linux/Windows, IP:S.S.S.S), 一个client节点(IP:C.C.C.C) 目标：client节点集成SpringData，把数据网格存储到server内存。 下载安装包官网下载地址 apache-ignite-fabric-2.3.0-bin.zip 服务端节">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oq6lqcu6w.bkt.clouddn.com/ignite-logo-3.jpg">
+<meta property="og:updated_time" content="2018-06-29T11:42:08.782Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ignite安装和SpringData集成">
+<meta name="twitter:description" content="文章源码-c1_igniteStart Ignite安装使用版本：v_2.3.0 环境：一个server节点(Linux/Windows, IP:S.S.S.S), 一个client节点(IP:C.C.C.C) 目标：client节点集成SpringData，把数据网格存储到server内存。 下载安装包官网下载地址 apache-ignite-fabric-2.3.0-bin.zip 服务端节">
+<meta name="twitter:image" content="http://oq6lqcu6w.bkt.clouddn.com/ignite-logo-3.jpg">
+    
+
+    
+        <link rel="alternate" href="/" title="One-Way Street" type="application/atom+xml" />
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.2.4/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">One-Way Street</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">Inici</a>
+                                </li>
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">Quant a</a>
+                                </li>
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="https://github.com">index.github</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Cercar" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'categories',
+            TAGS: 'etiquetes',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/ignite/">ignite</a>
+    </h1>
+</div>
+                        <div class="main-body-content">
+                            <article id="post-ignite安装和SpringData集成" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        ignite安装和SpringData集成
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2018/01/15/ignite安装和SpringData集成/" class="article-date">
+            <time datetime="2018-01-15T01:57:01.000Z" itemprop="datePublished">Jan 15 2018</time>
+        </a>
+    </div>
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/ignite/">ignite</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p><img src="http://oq6lqcu6w.bkt.clouddn.com/ignite-logo-3.jpg" alt="ignite-logo"></p>
+<p><a href="https://github.com/rayeden/ignite" target="_blank" rel="noopener">文章源码-c1_igniteStart</a></p>
+<h2 id="Ignite安装"><a href="#Ignite安装" class="headerlink" title="Ignite安装"></a>Ignite安装</h2><p>使用版本：v_2.3.0</p>
+<p>环境：一个server节点(Linux/Windows, IP:S.S.S.S), 一个client节点(IP:C.C.C.C)</p>
+<p>目标：client节点集成SpringData，把数据网格存储到server内存。</p>
+<h3 id="下载安装包"><a href="#下载安装包" class="headerlink" title="下载安装包"></a>下载安装包</h3><p><a href="https://ignite.apache.org/download.cgi#binaries" target="_blank" rel="noopener">官网下载地址</a></p>
+<p><a href="https://archive.apache.org/dist/ignite/2.3.0/apache-ignite-fabric-2.3.0-bin.zip" target="_blank" rel="noopener">apache-ignite-fabric-2.3.0-bin.zip</a></p>
+<h3 id="服务端节点"><a href="#服务端节点" class="headerlink" title="服务端节点"></a>服务端节点</h3><p>直接wget安装包到服务器，unzip解压后进入bin目录，直接输入启动命令就能运行ignite，如果不指定配置文件，程序默认使用conf/default-config.xml</p>
+<p>$: ./ignite.sh</p>
+<p>启动后就可以看到这个界面，这样一个ignite服务节点就算起好了（windows用ignite.bat启动）<br><img src="http://oq6lqcu6w.bkt.clouddn.com/ignite_start.png" alt="ignite_start"></p>
+<h3 id="客户端节点"><a href="#客户端节点" class="headerlink" title="客户端节点"></a>客户端节点</h3><h4 id="在maven应用中，添加ignite依赖"><a href="#在maven应用中，添加ignite依赖" class="headerlink" title="在maven应用中，添加ignite依赖"></a>在maven应用中，添加ignite依赖</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">&lt;properties&gt;</span><br><span class="line">    &lt;ignite.version&gt;2.3.0&lt;/ignite.version&gt;</span><br><span class="line">    &lt;spring.version&gt;4.3.14.RELEASE&lt;/spring.version&gt;</span><br><span class="line">    &lt;junit.version&gt;4.12&lt;/junit.version&gt;</span><br><span class="line">    &lt;lombok.version&gt;1.16.20&lt;/lombok.version&gt;</span><br><span class="line">&lt;/properties&gt;</span><br><span class="line">&lt;dependencies&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-test&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;$&#123;spring.version&#125;&lt;/version&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;junit&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;junit&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;$&#123;junit.version&#125;&lt;/version&gt;</span><br><span class="line">        &lt;scope&gt;test&lt;/scope&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.apache.ignite&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;ignite-spring&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;$&#123;ignite.version&#125;&lt;/version&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.apache.ignite&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;ignite-core&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;$&#123;ignite.version&#125;&lt;/version&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.apache.ignite&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;ignite-spring-data&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;$&#123;ignite.version&#125;&lt;/version&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.apache.ignite&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;ignite-log4j&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;$&#123;ignite.version&#125;&lt;/version&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.apache.ignite&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;ignite-indexing&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;$&#123;ignite.version&#125;&lt;/version&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;com.h2database&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;h2&lt;/artifactId&gt;version&gt;1.4.196&lt;/version&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line">      &lt;dependency&gt;</span><br><span class="line">          &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;</span><br><span class="line">          &lt;artifactId&gt;lombok&lt;/artifactId&gt;</span><br><span class="line">          &lt;version&gt;$&#123;lombok.version&#125;&lt;/version&gt;</span><br><span class="line">          &lt;scope&gt;provided&lt;/scope&gt;</span><br><span class="line">      &lt;/dependency&gt;</span><br><span class="line">&lt;/dependencies&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="写一个VO"><a href="#写一个VO" class="headerlink" title="写一个VO"></a>写一个VO</h4><p>  用@QuerySqlField注解声明为数据网格字段，用index声明索引字段。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//lombok注解，自动生成getter()和setter()</span></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PaperVO</span> </span>&#123;</span><br><span class="line">      <span class="meta">@QuerySqlField</span>(index = <span class="keyword">true</span>)</span><br><span class="line">      <span class="keyword">private</span> Long paperId;</span><br><span class="line">      <span class="meta">@QuerySqlField</span></span><br><span class="line">      <span class="keyword">private</span> String title;</span><br><span class="line">      <span class="meta">@QuerySqlField</span></span><br><span class="line">      <span class="keyword">private</span> String author;</span><br><span class="line">      <span class="meta">@QuerySqlField</span></span><br><span class="line">      <span class="keyword">private</span> String school;</span><br><span class="line">      <span class="meta">@QuerySqlField</span></span><br><span class="line">      <span class="keyword">private</span> Date publicTime;</span><br><span class="line"></span><br><span class="line">    ... builder代码</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="配置一个Client-Bean"><a href="#配置一个Client-Bean" class="headerlink" title="配置一个Client Bean"></a>配置一个Client Bean</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="comment">//扫描basePackages包下的类，让这些类能够被注解为SpringData的仓库接口</span></span><br><span class="line"><span class="meta">@EnableIgniteRepositories</span>(basePackages = &#123;<span class="string">"com.xhtc.ignite.repository"</span>&#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">IgniteClient</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> IgniteConfiguration igniteConfiguration;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> Ignite ignite;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> IgniteConfiguration <span class="title">getIgniteConfiguration</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> igniteConfiguration;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setIgniteConfiguration</span><span class="params">(IgniteConfiguration igniteConfiguration)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.igniteConfiguration = igniteConfiguration;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//IgniteRepositoryBeanFactory指定要名为igniteInstance的Bean,可查看源代码</span></span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Ignite <span class="title">igniteInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      ignite = Ignition.start(igniteConfiguration);</span><br><span class="line">      <span class="keyword">return</span> ignite;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="comment">//ignite的destroy方法必须传入数据网格名称作为参数</span></span><br><span class="line">      List&lt;String&gt; caches = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">      caches.add(<span class="string">"PaperCache"</span>);</span><br><span class="line">      ignite.destroyCaches(caches);</span><br><span class="line">      ignite.close();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="XML配置具体的IgniteConfiguration"><a href="#XML配置具体的IgniteConfiguration" class="headerlink" title="XML配置具体的IgniteConfiguration"></a>XML配置具体的IgniteConfiguration</h4><p>ignite具体的IgniteConfiguration配置写在xml文件中。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:context</span>=<span class="string">"http://www.springframework.org/schema/context"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 扫描Repository包 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"com.xhtc.ignite"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"igniteClient"</span> <span class="attr">class</span>=<span class="string">"com.xhtc.ignite.IgniteClient"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"igniteConfiguration"</span> <span class="attr">ref</span>=<span class="string">"igniteConfig"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"igniteConfig"</span> <span class="attr">class</span>=<span class="string">"org.apache.ignite.configuration.IgniteConfiguration"</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 配置为客户端节点(必须，否则默认为server) --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"clientMode"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 配置客户端节点名称 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"igniteInstanceName"</span> <span class="attr">value</span>=<span class="string">"igniteStart"</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 客户端关闭metrics日志打印(value类型long 设置60*1000L即为1分钟刷新一次metrics日志，设置为0即关闭) --&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--&lt;property name="metricsLogFrequency" value="0"/&gt;--&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- server重启时客户端自动重连(value时间内服务端若重启客户端会自动重连)--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"networkTimeout"</span> <span class="attr">value</span>=<span class="string">"1000000"</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 配置内存数据网格 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"cacheConfiguration"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">list</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">ref</span> <span class="attr">bean</span>=<span class="string">"paperCache"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">list</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 配置集群ip(静态) --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"discoverySpi"</span> <span class="attr">ref</span>=<span class="string">"discoverySpi"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"paperCache"</span> <span class="attr">class</span>=<span class="string">"org.apache.ignite.configuration.CacheConfiguration"</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 数据网格名称，Repository注解使用 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"name"</span> <span class="attr">value</span>=<span class="string">"PaperCache"</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 缓存模式可以是PARTITIONED(分片)REPLICATED(主从复制)等 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"cacheMode"</span> <span class="attr">value</span>=<span class="string">"PARTITIONED"</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 使用Ignite数据网格必须设置indexedTypes --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"indexedTypes"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">list</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>java.lang.Long<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>com.xhtc.ignite.vo.PaperVO<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">list</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"discoverySpi"</span> <span class="attr">class</span>=<span class="string">"org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"ipFinder"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"addresses"</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">list</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">value</span>&gt;</span>S:S:S:S:47500..47509<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">list</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="业务逻辑"><a href="#业务逻辑" class="headerlink" title="业务逻辑"></a>业务逻辑</h2><h3 id="用IgniteRepository实现数据存取"><a href="#用IgniteRepository实现数据存取" class="headerlink" title="用IgniteRepository实现数据存取"></a>用IgniteRepository实现数据存取</h3><p>到这里为止，Ignite客户端的环境和数据网格都已经配置好了，接下来就是业务逻辑。让业务逻辑接口继承IgniteRepository后，可以发现在写方法的时候智能提示Ignite的特定语法，类似这样：<br><img src="http://oq6lqcu6w.bkt.clouddn.com/ignite_interface_schema.png" alt="ignite_interface_schema"></p>
+<p>关键词有”By”,”And”,”Between”,”OrderBy”等等，Ignite底层的SQL引擎会解析这些关键词，把接口名称转换为对应SQL语句，然后查询数据网格~ 高级(可以看下IgniteQueryGenerator.java这个类的方法)。除了接口方法特定的关键词，也可以用@Query注解自定义SQL进行操作，Ignite的SQL是符合ANSI SQL99规范的，可以参见官方文档 <a href="https://apacheignite-sql.readme.io/docs" target="_blank" rel="noopener">Ignite SQL</a>。</p>
+<p>所以这里，我的业务逻辑接口就写成下面这样。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//cacheName指定数据网格</span></span><br><span class="line"><span class="meta">@RepositoryConfig</span>(cacheName = <span class="string">"PaperCache"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">PaperRepository</span> <span class="keyword">extends</span> <span class="title">IgniteRepository</span>&lt;<span class="title">PaperVO</span>, <span class="title">Long</span>&gt; </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取指定作者的所有论文</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">List&lt;PaperVO&gt; <span class="title">getByAuthor</span><span class="params">(String author)</span></span>;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取作者的所有论文并以发布时间升序排列</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">List&lt;PaperVO&gt; <span class="title">getByAuthorOrderByPublicTimeAsc</span><span class="params">(String author)</span></span>;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 自定义SQL</span></span><br><span class="line"><span class="comment">    * 根据标题获取Paper</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="meta">@Query</span>(<span class="string">"SELECT * FROM PaperVO WHERE title = ?"</span>)</span><br><span class="line">   <span class="function">PaperVO <span class="title">getPaperBySQL</span><span class="params">(String title)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h3><p>在执行单元测试时先启动Ignite，然后把需要的数据放入Ignite。<br>四个@Test对IgniteRepository的方法进行测试。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@RunWith</span>(SpringJUnit4ClassRunner.class)</span><br><span class="line"><span class="meta">@ContextConfiguration</span>(locations = &#123;<span class="string">"classpath:applicationContext-ignite.xml"</span>&#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">IgniteStartTest</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> IgniteClient igniteClient;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> PaperRepository paperRepository;</span><br><span class="line">    <span class="keyword">private</span> SimpleDateFormat sdf = <span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyyy-MM-dd HH:mm:ss"</span>);</span><br><span class="line">    <span class="meta">@Before</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUp</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">//启动ignite</span></span><br><span class="line">        igniteClient.igniteInstance();</span><br><span class="line">        <span class="comment">//向paperCache存入数据</span></span><br><span class="line">        PaperVO x_paper1 = PaperVO.PaperVOBuilder.aPaperVO().paperId(<span class="number">1L</span>).author(<span class="string">"xhtc"</span>).title(<span class="string">"x_paper1"</span>)</span><br><span class="line">                .school(<span class="string">"hdu"</span>).publicTime(sdf.parse(<span class="string">"2015-3-1 15:30:30"</span>)).build();</span><br><span class="line">        PaperVO x_paper2 = PaperVO.PaperVOBuilder.aPaperVO().paperId(<span class="number">2L</span>).author(<span class="string">"xhtc"</span>).title(<span class="string">"x_paper2"</span>)</span><br><span class="line">                .school(<span class="string">"hdu"</span>).publicTime(sdf.parse(<span class="string">"2015-10-1 10:00:00"</span>)).build();</span><br><span class="line">        PaperVO c_paper1 = PaperVO.PaperVOBuilder.aPaperVO().paperId(<span class="number">3L</span>).author(<span class="string">"cccc"</span>).title(<span class="string">"c_paper1"</span>)</span><br><span class="line">                .school(<span class="string">"hdu"</span>).publicTime(sdf.parse(<span class="string">"2016-5-7 10:00:00"</span>)).build();</span><br><span class="line">        PaperVO c_paper2 = PaperVO.PaperVOBuilder.aPaperVO().paperId(<span class="number">4L</span>).author(<span class="string">"cccc"</span>).title(<span class="string">"c_paper2"</span>)</span><br><span class="line">                .school(<span class="string">"hdu"</span>).publicTime(sdf.parse(<span class="string">"2016-11-7 10:00:00"</span>)).build();</span><br><span class="line">        PaperVO c_paper3 = PaperVO.PaperVOBuilder.aPaperVO().paperId(<span class="number">5L</span>).author(<span class="string">"cccc"</span>).title(<span class="string">"c_paper3"</span>)</span><br><span class="line">                .school(<span class="string">"hdu"</span>).publicTime(sdf.parse(<span class="string">"2014-11-11 11:00:00"</span>)).build();</span><br><span class="line">        Map&lt;Long, PaperVO&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        map.put(<span class="number">1L</span>, x_paper1);</span><br><span class="line">        map.put(<span class="number">2L</span>, x_paper2);</span><br><span class="line">        map.put(<span class="number">3L</span>, c_paper1);</span><br><span class="line">        map.put(<span class="number">4L</span>, c_paper2);</span><br><span class="line">        map.put(<span class="number">5L</span>, c_paper3);</span><br><span class="line">        paperRepository.save(map);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@After</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">tearDown</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        igniteClient.destroy();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getByAuthorTest</span><span class="params">()</span> <span class="keyword">throws</span> ParseException </span>&#123;</span><br><span class="line">        List&lt;PaperVO&gt; list = paperRepository.getByAuthor(<span class="string">"xhtc"</span>);</span><br><span class="line">        <span class="keyword">assert</span> list.size() == <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">assert</span> list.get(<span class="number">0</span>).getAuthor().equals(<span class="string">"xhtc"</span>);</span><br><span class="line">        <span class="keyword">assert</span> list.get(<span class="number">1</span>).getAuthor().equals(<span class="string">"xhtc"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getByAuthorOrderByPublicTimeAscTest</span><span class="params">()</span> <span class="keyword">throws</span> ParseException </span>&#123;</span><br><span class="line">        List&lt;PaperVO&gt; list = paperRepository.getByAuthorOrderByPublicTimeAsc(<span class="string">"cccc"</span>);</span><br><span class="line">        <span class="keyword">assert</span> list.size() == <span class="number">3</span>;</span><br><span class="line">        <span class="keyword">assert</span> list.get(<span class="number">0</span>).getPublicTime().equals(sdf.parse(<span class="string">"2014-11-11 11:00:00"</span>));</span><br><span class="line">        <span class="keyword">assert</span> list.get(<span class="number">1</span>).getPublicTime().equals(sdf.parse(<span class="string">"2016-5-7 10:00:00"</span>));</span><br><span class="line">        <span class="keyword">assert</span> list.get(<span class="number">2</span>).getPublicTime().equals(sdf.parse(<span class="string">"2016-11-7 10:00:00"</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updatePaperTest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        PaperVO paper = paperRepository.findOne(<span class="number">1L</span>);</span><br><span class="line">        <span class="keyword">assert</span> paper.getTitle().equals(<span class="string">"x_paper1"</span>);</span><br><span class="line">        paper.setTitle(<span class="string">"update_Title"</span>);</span><br><span class="line">        paperRepository.save(paper.getPaperId(), paper);</span><br><span class="line">        PaperVO paper2 = paperRepository.findOne(<span class="number">1L</span>);</span><br><span class="line">        <span class="keyword">assert</span> paper2.getTitle().equals(<span class="string">"update_Title"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getPaperBySQLTest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        PaperVO paper = paperRepository.getPaperBySQL(<span class="string">"c_paper2"</span>);</span><br><span class="line">        <span class="keyword">assert</span> paper.getPaperId() == <span class="number">4</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>IDEA运行单元测试时(打住断点)，在控制台可以看到节点数变化</p>
+<p><img src="http://oq6lqcu6w.bkt.clouddn.com/ignite_start_client.png" alt="ignite_start_client"></p>
+<h2 id="要注意的点"><a href="#要注意的点" class="headerlink" title="要注意的点"></a>要注意的点</h2><ul>
+<li><p>PaperRepository继承了IgniteRepository，而IgniteRepository继承了CrudRepository，本质上就是IgniteRepositoryImpl(IgniteRepository的实现类)，用IgniteCache&lt;ID, T&gt; cache获取到内存数据网格，然后用Ignite自己的API封装了一套CRUD方法。<em>要注意的是</em>:</p>
+<ul>
+<li>如果PaperVO自己的paperId为null, 用save(Long Id, Object o)方法保存到Ignite网格后，字段paperId依然为null，无法在接口方法中使用”SELECT * FROM PapaerVO Where <strong>paperId = ?</strong>“这条SQL查询。</li>
+<li>Ignite自定义SQL（@Query）不支持UPDATE语法，如果要更新某条记录，直接取出VO修改后再重新save即可。</li>
+<li>Ignite SpringData一个比较大的问题就是，当自定义SQL不能正确执行，只会报一个 “fail to parse SQL” 的错误，不会直接提醒哪错了。</li>
+</ul>
+</li>
+<li><p>如果不配置SpringData，可以根据caheName取出IgniteCache&lt;ID, T&gt; cache，直接用Ignite Api进行操作，可以参考文档，或者看下IgniteRepositoryImpl这个类就能了解大概了。</p>
+<ul>
+<li>缺点，相比直接操作接口，这种方法比较麻烦。</li>
+<li>优点，SpringData需要提前再XML里配置IndexedTypes，而Ignite Api可以 ignite.getOrCreate(String cacheName)。</li>
+</ul>
+</li>
+<li><p>SpringData中自带了jcl桥接依赖，会自动把log4j转成sfl4j，如果不想这么做，在maven中exclusion这个依赖即可。</p>
+</li>
+<li><p>踩坑补充</p>
+<ul>
+<li>SpringData只支持SELECT方法，就是只能用来查询，如果需要修改，就调用save(KEY,VO)方法覆盖键值。</li>
+<li>另外findOne(KEY)方法是CrudRepository的原生方法，默认取出一个迭代器(永远不会是null)，如果要从数据网格查询，就在SpringData接口里写一个findById(ID)的方法，如果数据不存在就会返回null。</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://yoursite.com/2018/01/15/ignite安装和SpringData集成/" data-id="cjj063zn4001t7orwjcrtjzjq" class="article-share-link"><i class="fa fa-share"></i>Compartir</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>seguir:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/rayeden" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2018/02/28/ignite运维-主从复制/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">més nou</strong>
+        <p class="article-nav-title">
+        
+            ignite运维-安全配置和主从复制
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2017/12/14/设计模式/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">antic</strong>
+        <p class="article-nav-title">设计模式</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/04/12/ignite固化内存-持久化-示例/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://oq6lqcu6w.bkt.clouddn.com/ignite-hero-image.jpg)" alt="ignite固化内存(持久化)示例" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/ignite/">ignite</a></p>
+                            <p class="item-title"><a href="/2018/04/12/ignite固化内存-持久化-示例/" class="title">ignite固化内存(持久化)示例</a></p>
+                            <p class="item-date"><time datetime="2018-04-12T11:14:08.000Z" itemprop="datePublished">Apr 12 2018</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/04/08/服务器OOM问题排查/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://oq6lqcu6w.bkt.clouddn.com/OOM.png)" alt="服务器OOM问题排查" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/ignite/">ignite</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/ignite/工作总结/">工作总结</a></p>
+                            <p class="item-title"><a href="/2018/04/08/服务器OOM问题排查/" class="title">服务器OOM问题排查</a></p>
+                            <p class="item-date"><time datetime="2018-04-08T12:04:50.000Z" itemprop="datePublished">Apr 8 2018</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/02/28/ignite运维-主从复制/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/ignite/">ignite</a></p>
+                            <p class="item-title"><a href="/2018/02/28/ignite运维-主从复制/" class="title">ignite运维-安全配置和主从复制</a></p>
+                            <p class="item-date"><time datetime="2018-02-28T06:16:11.000Z" itemprop="datePublished">Feb 28 2018</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/01/15/ignite安装和SpringData集成/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://oq6lqcu6w.bkt.clouddn.com/ignite-logo-3.jpg)" alt="ignite安装和SpringData集成" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/ignite/">ignite</a></p>
+                            <p class="item-title"><a href="/2018/01/15/ignite安装和SpringData集成/" class="title">ignite安装和SpringData集成</a></p>
+                            <p class="item-date"><time datetime="2018-01-15T01:57:01.000Z" itemprop="datePublished">Jan 15 2018</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/12/14/设计模式/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/读书笔记/">读书笔记</a></p>
+                            <p class="item-title"><a href="/2017/12/14/设计模式/" class="title">设计模式</a></p>
+                            <p class="item-date"><time datetime="2017-12-14T13:53:14.000Z" itemprop="datePublished">Dec 14 2017</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaWeb/">JavaWeb</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ignite/">ignite</a><span class="category-list-count">4</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ignite/工作总结/">工作总结</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/工作总结/">工作总结</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/读书笔记/">读书笔记</a><span class="category-list-count">3</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">arxius</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">4</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">etiquetes</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Effective-Java/">Effective Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HeadFirst设计模式/">HeadFirst设计模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/">SpringBoot</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Work/">Work</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ignite/">ignite</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mybatis/">mybatis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习实战/">机器学习实战</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/运维/">运维</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">etiqueta cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Effective-Java/" style="font-size: 10px;">Effective Java</a> <a href="/tags/HeadFirst设计模式/" style="font-size: 10px;">HeadFirst设计模式</a> <a href="/tags/Java/" style="font-size: 16.67px;">Java</a> <a href="/tags/Python/" style="font-size: 16.67px;">Python</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 10px;">SpringBoot</a> <a href="/tags/Web/" style="font-size: 16.67px;">Web</a> <a href="/tags/Work/" style="font-size: 13.33px;">Work</a> <a href="/tags/ignite/" style="font-size: 20px;">ignite</a> <a href="/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/tags/机器学习实战/" style="font-size: 16.67px;">机器学习实战</a> <a href="/tags/运维/" style="font-size: 10px;">运维</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">etiqueta cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Effective-Java/" style="font-size: 10px;">Effective Java</a> <a href="/tags/HeadFirst设计模式/" style="font-size: 10px;">HeadFirst设计模式</a> <a href="/tags/Java/" style="font-size: 16.67px;">Java</a> <a href="/tags/Python/" style="font-size: 16.67px;">Python</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 10px;">SpringBoot</a> <a href="/tags/Web/" style="font-size: 16.67px;">Web</a> <a href="/tags/Work/" style="font-size: 13.33px;">Work</a> <a href="/tags/ignite/" style="font-size: 20px;">ignite</a> <a href="/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/tags/机器学习实战/" style="font-size: 16.67px;">机器学习实战</a> <a href="/tags/运维/" style="font-size: 10px;">运维</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2018 理想主义和宅</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'http://yoursite.com/2018/01/15/ignite安装和SpringData集成/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

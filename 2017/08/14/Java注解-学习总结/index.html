@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+
+    
+
+    
+    <title>Java注解 学习总结 | One-Way Street</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="Java" />
+    
+    <meta name="description" content="注解可以理解为是一套必须带有默认值的接口方法，相比接口，注解在代码中更像是一种描述或者标记。Java里有三种标准注解：@Override – 标记为覆盖超类方法。@Deprecated – 标记为过期。@SuppressWarnings – 标记为不提示编译警告。 四种元注解（负责注解其他注解）：@Target – 标记注解使用范围。（FIELD-域，METHOD-方法，TYPE-类型，CONST">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java注解 学习总结">
+<meta property="og:url" content="http://yoursite.com/2017/08/14/Java注解-学习总结/index.html">
+<meta property="og:site_name" content="One-Way Street">
+<meta property="og:description" content="注解可以理解为是一套必须带有默认值的接口方法，相比接口，注解在代码中更像是一种描述或者标记。Java里有三种标准注解：@Override – 标记为覆盖超类方法。@Deprecated – 标记为过期。@SuppressWarnings – 标记为不提示编译警告。 四种元注解（负责注解其他注解）：@Target – 标记注解使用范围。（FIELD-域，METHOD-方法，TYPE-类型，CONST">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oq6lqcu6w.bkt.clouddn.com/Annotation.jpg">
+<meta property="og:updated_time" content="2018-06-29T11:42:08.785Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java注解 学习总结">
+<meta name="twitter:description" content="注解可以理解为是一套必须带有默认值的接口方法，相比接口，注解在代码中更像是一种描述或者标记。Java里有三种标准注解：@Override – 标记为覆盖超类方法。@Deprecated – 标记为过期。@SuppressWarnings – 标记为不提示编译警告。 四种元注解（负责注解其他注解）：@Target – 标记注解使用范围。（FIELD-域，METHOD-方法，TYPE-类型，CONST">
+<meta name="twitter:image" content="http://oq6lqcu6w.bkt.clouddn.com/Annotation.jpg">
+    
+
+    
+        <link rel="alternate" href="/" title="One-Way Street" type="application/atom+xml" />
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.2.4/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">One-Way Street</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">Inici</a>
+                                </li>
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/about/index.html">Quant a</a>
+                                </li>
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="https://github.com">index.github</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Cercar" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'categories',
+            TAGS: 'etiquetes',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/读书笔记/">读书笔记</a>
+    </h1>
+</div>
+                        <div class="main-body-content">
+                            <article id="post-Java注解-学习总结" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        Java注解 学习总结
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2017/08/14/Java注解-学习总结/" class="article-date">
+            <time datetime="2017-08-14T05:41:49.000Z" itemprop="datePublished">Aug 14 2017</time>
+        </a>
+    </div>
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Java/">Java</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>注解可以理解为是一套<strong>必须</strong>带有默认值的接口方法，相比接口，注解在代码中更像是一种描述或者标记。<br>Java里有三种标准注解：<br>@Override – 标记为覆盖超类方法。<br>@Deprecated – 标记为过期。<br>@SuppressWarnings – 标记为不提示编译警告。</p>
+<p>四种元注解（负责注解其他注解）：<br>@Target – 标记注解使用范围。（FIELD-域，METHOD-方法，TYPE-类型，CONSTRUCTOR-构造器，等等）<br>@Retention – 标记为保存该注解信息的级别。（RUNTIME-VM在运行期也保留注解，因此可以通过反射机制读取注解信息，SOURCE-注解会被编译器丢弃，CLASS-注解正在class文件中可用，但会被VM丢弃）<br>@Documented –标记此注解包含在Javadoc中。<br>@Inherited – 允许子类继承父类中的注解。</p>
+<h5 id="模拟数据库字段约束示例"><a href="#模拟数据库字段约束示例" class="headerlink" title="模拟数据库字段约束示例"></a>模拟数据库字段约束示例</h5><p>所有注解的RetentionPolicy都是RUNTIME，这样才可以在注解处理器中用反射获取注解信息。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Target约束注解为TYPE，注解用于‘类’</span></span><br><span class="line"><span class="comment">//注解数据库表，name()为表名</span></span><br><span class="line"><span class="meta">@Target</span>(ElementType.TYPE)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> DBTable &#123;</span><br><span class="line">    <span class="function">String <span class="title">name</span><span class="params">()</span> <span class="keyword">default</span> ""</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Target约束注解为FIELD，注解用于‘域’</span></span><br><span class="line"><span class="comment">//此注解为约束，设置字段是否主键，是否允许为空，是否为唯一索引等</span></span><br><span class="line"><span class="meta">@Target</span>(ElementType.FIELD)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Constraints &#123;</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">primaryKey</span><span class="params">()</span> <span class="keyword">default</span> <span class="keyword">false</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">allowNull</span><span class="params">()</span> <span class="keyword">default</span> <span class="keyword">true</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">unique</span><span class="params">()</span> <span class="keyword">default</span> <span class="keyword">false</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//整数字段类型的注解，表示某个域为整型</span></span><br><span class="line"><span class="comment">//同时嵌套了Constraints约束注解</span></span><br><span class="line"><span class="meta">@Target</span>(ElementType.FIELD)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> SQLInteger &#123;</span><br><span class="line">    <span class="function">String <span class="title">name</span><span class="params">()</span> <span class="keyword">default</span> ""</span>;</span><br><span class="line">    <span class="function">Constraints <span class="title">constraints</span><span class="params">()</span> <span class="keyword">default</span> @Constraints</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//同SQLInteger注解，这是一个VARCHAR类型的域注解</span></span><br><span class="line"><span class="comment">//length为设定长度</span></span><br><span class="line"><span class="meta">@Target</span>(ElementType.FIELD)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> SQLString &#123;</span><br><span class="line">    <span class="comment">//字段长度</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">length</span><span class="params">()</span> <span class="keyword">default</span> 0</span>;</span><br><span class="line">    <span class="function">String <span class="title">name</span><span class="params">()</span> <span class="keyword">default</span> ""</span>;</span><br><span class="line">    <span class="function">Constraints <span class="title">constrants</span><span class="params">()</span> <span class="keyword">default</span> @Constraints</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Decimal类型</span></span><br><span class="line"><span class="meta">@Target</span>(ElementType.FIELD)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> SQLDecimal &#123;</span><br><span class="line">    <span class="comment">//字段名称</span></span><br><span class="line">    <span class="function">String <span class="title">name</span><span class="params">()</span> <span class="keyword">default</span> ""</span>;</span><br><span class="line">    <span class="comment">//长度为10</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">length</span><span class="params">()</span> <span class="keyword">default</span> 10</span>;</span><br><span class="line">    <span class="comment">//精度为2</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">precision</span><span class="params">()</span> <span class="keyword">default</span> 2</span>;</span><br><span class="line">    <span class="function">Constraints <span class="title">constraints</span><span class="params">()</span> <span class="keyword">default</span> @Constraints</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="创建一张表，用注解描述表名和字段类型"><a href="#创建一张表，用注解描述表名和字段类型" class="headerlink" title="创建一张表，用注解描述表名和字段类型"></a>创建一张表，用注解描述表名和字段类型</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//表名为MemberName</span></span><br><span class="line"><span class="meta">@DBTable</span>(name = <span class="string">"MemberName"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Member</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//默认赋值到int</span></span><br><span class="line">    <span class="meta">@SQLString</span>(length = <span class="number">30</span>)</span><br><span class="line">    <span class="keyword">private</span> String firstName;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@SQLString</span>(length = <span class="number">50</span>)</span><br><span class="line">    <span class="keyword">private</span> String lastName;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@SQLInteger</span></span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@SQLString</span>(length = <span class="number">30</span>, constrants = <span class="meta">@Constraints</span>(primaryKey = <span class="keyword">true</span>))</span><br><span class="line">    <span class="keyword">private</span> String handle;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@SQLDecimal</span></span><br><span class="line">    <span class="keyword">private</span> BigDecimal salary;</span><br><span class="line"></span><br><span class="line">    getters() and setters ..</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="读取创建信息的注解处理器（反射）"><a href="#读取创建信息的注解处理器（反射）" class="headerlink" title="读取创建信息的注解处理器（反射）"></a>读取创建信息的注解处理器（反射）</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TableCreator</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException </span>&#123;</span><br><span class="line">           String[] tables = <span class="keyword">new</span> String[]&#123;<span class="string">"chapter20_annotation.generatingExternalFiles.Member"</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span> (String className : tables ) &#123;</span><br><span class="line">            <span class="comment">//反射得到类型信息</span></span><br><span class="line">            Class&lt;?&gt; cl = Class.forName(className);</span><br><span class="line">            <span class="comment">//获取类上指定的注解</span></span><br><span class="line">            DBTable dbTable = cl.getAnnotation(DBTable.class);</span><br><span class="line">            <span class="comment">//如果参数列表的类中不存在DBTable注解，跳过</span></span><br><span class="line">            <span class="keyword">if</span> (dbTable == <span class="keyword">null</span>) &#123;</span><br><span class="line">                System.out.println(<span class="string">"No Table annotation in class "</span> + className);</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            String tableName = dbTable.name();</span><br><span class="line">            <span class="keyword">if</span> (tableName.length() &lt; <span class="number">1</span>) &#123;</span><br><span class="line">                tableName = cl.getName().toUpperCase();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//类型注解名称</span></span><br><span class="line">            System.out.println(<span class="string">"tableName: "</span> + tableName);</span><br><span class="line">            List&lt;String&gt; columnDefs = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">            <span class="comment">//获取类中的成员</span></span><br><span class="line">            <span class="keyword">for</span> (Field field : cl.getDeclaredFields()) &#123;</span><br><span class="line">                <span class="comment">//字段名称</span></span><br><span class="line">                String columnName = <span class="keyword">null</span>;</span><br><span class="line">                <span class="comment">//获取成员上的注解列表</span></span><br><span class="line">                Annotation[] anns = field.getDeclaredAnnotations();</span><br><span class="line">                <span class="keyword">if</span> (anns.length &lt; <span class="number">1</span>)</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                <span class="comment">//数据库表中每个字段只会有一种数据类型，数据类型注解中嵌套了约束注解，所以只需用anns[0]</span></span><br><span class="line">                <span class="keyword">if</span> (anns[<span class="number">0</span>] <span class="keyword">instanceof</span> SQLInteger) &#123;</span><br><span class="line">                    SQLInteger sInt = (SQLInteger) anns[<span class="number">0</span>];</span><br><span class="line">                    <span class="keyword">if</span> (sInt.name().length() &lt; <span class="number">1</span>) &#123;</span><br><span class="line">                        columnName = field.getName().toUpperCase();</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        columnName = sInt.name();</span><br><span class="line">                    &#125;</span><br><span class="line">                    columnDefs.add(columnName + <span class="string">" INT"</span> + getConstraints(sInt.constraints()));</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (anns[<span class="number">0</span>] <span class="keyword">instanceof</span> SQLString) &#123;</span><br><span class="line">                    SQLString sString = (SQLString) anns[<span class="number">0</span>];</span><br><span class="line">                    <span class="keyword">if</span> (sString.name().length() &lt; <span class="number">1</span>) &#123;</span><br><span class="line">                        columnName = field.getName().toUpperCase();</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        columnName = sString.name();</span><br><span class="line">                    &#125;</span><br><span class="line">                    columnDefs.add(columnName + <span class="string">" VARCHAR("</span> + sString.length() + <span class="string">")"</span> + getConstraints(sString.constrants()));</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (anns[<span class="number">0</span>] <span class="keyword">instanceof</span> SQLDecimal) &#123;</span><br><span class="line">                    SQLDecimal sDecimal = (SQLDecimal) anns[<span class="number">0</span>];</span><br><span class="line">                    <span class="keyword">if</span> (sDecimal.name().length() &lt; <span class="number">1</span>) &#123;</span><br><span class="line">                        columnName = field.getName().toUpperCase();</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        columnName = sDecimal.name();</span><br><span class="line">                    &#125;</span><br><span class="line">                    columnDefs.add(columnName + <span class="string">" Decimal("</span> + sDecimal.length() + <span class="string">", "</span> + sDecimal.precision() + <span class="string">")"</span> + getConstraints(sDecimal.constraints()));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            StringBuilder createCommand = <span class="keyword">new</span> StringBuilder(<span class="string">"CREATE TABLE "</span> + tableName + <span class="string">"("</span>);</span><br><span class="line">            <span class="keyword">for</span> (String columnDef : columnDefs)</span><br><span class="line">                createCommand.append(<span class="string">"\n    "</span>).append(columnDef).append(<span class="string">"."</span>);</span><br><span class="line">            String tableCreate = createCommand.substring(<span class="number">0</span>, createCommand.length() - <span class="number">1</span>) + <span class="string">");"</span>;</span><br><span class="line">            System.out.println(<span class="string">"Table Creation SQL for "</span> + className + <span class="string">" is :\n"</span> + tableCreate);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">打印结果</span><br><span class="line">tableName: MemberName</span><br><span class="line">Table Creation SQL for chapter20_annotation.generatingExternalFiles.Member is :</span><br><span class="line">CREATE TABLE MemberName(</span><br><span class="line">    FIRSTNAME VARCHAR(30).</span><br><span class="line">    LASTNAME VARCHAR(50).</span><br><span class="line">    AGE INT.</span><br><span class="line">    HANDLE VARCHAR(30) PRIMARY KEY.</span><br><span class="line">    SALARY Decimal(10, 2));</span><br></pre></td></tr></table></figure>
+<p>注解处理器解析出代码中的注解，并根据数据库语法规则打印出创建MemberName表的SQL语句。以上自定义注解的RetentionPolicy.RUNTIME设定，可以在运行时期通过Java反射机制获取注解在内存模型中的信息。<br>下面的图是我根据自己的理解画的，比较简单。</p>
+<p><img src="http://oq6lqcu6w.bkt.clouddn.com/Annotation.jpg" alt=""></p>
+<p>Java通过反射进入内存模型中的方法区，方法区里包含类型信息，getAnnotation()方法可以获得类上指定的注解，示例中是检查了DBTable注解是否存在在这个类中，获取DBTable注解后通过 dbTable.name()就获取到设定的表名（注解可以理解成是带有默认值的接口，所以这个操作就是获取了方法的返回值）。同样在域值上，field.getDeclaredAnnotations()方法可以获取某个域上的注解列表，然后遍历注解列表逐个解析。理解了内存模型，这一点就不难了。</p>
+<h5 id="Remark"><a href="#Remark" class="headerlink" title="Remark"></a>Remark</h5><p>Spring里有很多在类型上的注解，比如@Service，@Controller，等都可以自定义一个类名，当然在真实框架中不可能用这么暴力的注解处理器，每次都去做全局的遍历，《Thinking In Java》中提到了观察者模式下的注解处理器，还没怎么看明白，先在此记录一下注解本身的原理和用法吧~ 再接再厉~</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://yoursite.com/2017/08/14/Java注解-学习总结/" data-id="cjj063zlz00047orwskp8twxu" class="article-share-link"><i class="fa fa-share"></i>Compartir</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>seguir:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/rayeden" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="/" target="_blank" rel="noopener">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2017/11/30/方法参数的有效性检查/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">més nou</strong>
+        <p class="article-nav-title">
+        
+            方法参数的有效性检查
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2017/06/16/SpringBoot-start/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">antic</strong>
+        <p class="article-nav-title">SpringBoot初步实践</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">recents</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/04/12/ignite固化内存-持久化-示例/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://oq6lqcu6w.bkt.clouddn.com/ignite-hero-image.jpg)" alt="ignite固化内存(持久化)示例" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/ignite/">ignite</a></p>
+                            <p class="item-title"><a href="/2018/04/12/ignite固化内存-持久化-示例/" class="title">ignite固化内存(持久化)示例</a></p>
+                            <p class="item-date"><time datetime="2018-04-12T11:14:08.000Z" itemprop="datePublished">Apr 12 2018</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/04/08/服务器OOM问题排查/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://oq6lqcu6w.bkt.clouddn.com/OOM.png)" alt="服务器OOM问题排查" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/ignite/">ignite</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/ignite/工作总结/">工作总结</a></p>
+                            <p class="item-title"><a href="/2018/04/08/服务器OOM问题排查/" class="title">服务器OOM问题排查</a></p>
+                            <p class="item-date"><time datetime="2018-04-08T12:04:50.000Z" itemprop="datePublished">Apr 8 2018</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/02/28/ignite运维-主从复制/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/ignite/">ignite</a></p>
+                            <p class="item-title"><a href="/2018/02/28/ignite运维-主从复制/" class="title">ignite运维-安全配置和主从复制</a></p>
+                            <p class="item-date"><time datetime="2018-02-28T06:16:11.000Z" itemprop="datePublished">Feb 28 2018</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/01/15/ignite安装和SpringData集成/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://oq6lqcu6w.bkt.clouddn.com/ignite-logo-3.jpg)" alt="ignite安装和SpringData集成" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/ignite/">ignite</a></p>
+                            <p class="item-title"><a href="/2018/01/15/ignite安装和SpringData集成/" class="title">ignite安装和SpringData集成</a></p>
+                            <p class="item-date"><time datetime="2018-01-15T01:57:01.000Z" itemprop="datePublished">Jan 15 2018</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/12/14/设计模式/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/读书笔记/">读书笔记</a></p>
+                            <p class="item-title"><a href="/2017/12/14/设计模式/" class="title">设计模式</a></p>
+                            <p class="item-date"><time datetime="2017-12-14T13:53:14.000Z" itemprop="datePublished">Dec 14 2017</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaWeb/">JavaWeb</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ignite/">ignite</a><span class="category-list-count">4</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ignite/工作总结/">工作总结</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/工作总结/">工作总结</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/读书笔记/">读书笔记</a><span class="category-list-count">3</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">arxius</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">4</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">etiquetes</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Effective-Java/">Effective Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HeadFirst设计模式/">HeadFirst设计模式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/">SpringBoot</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Work/">Work</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ignite/">ignite</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mybatis/">mybatis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/机器学习实战/">机器学习实战</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/运维/">运维</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">etiqueta cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Effective-Java/" style="font-size: 10px;">Effective Java</a> <a href="/tags/HeadFirst设计模式/" style="font-size: 10px;">HeadFirst设计模式</a> <a href="/tags/Java/" style="font-size: 16.67px;">Java</a> <a href="/tags/Python/" style="font-size: 16.67px;">Python</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 10px;">SpringBoot</a> <a href="/tags/Web/" style="font-size: 16.67px;">Web</a> <a href="/tags/Work/" style="font-size: 13.33px;">Work</a> <a href="/tags/ignite/" style="font-size: 20px;">ignite</a> <a href="/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/tags/机器学习实战/" style="font-size: 16.67px;">机器学习实战</a> <a href="/tags/运维/" style="font-size: 10px;">运维</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">etiqueta cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Effective-Java/" style="font-size: 10px;">Effective Java</a> <a href="/tags/HeadFirst设计模式/" style="font-size: 10px;">HeadFirst设计模式</a> <a href="/tags/Java/" style="font-size: 16.67px;">Java</a> <a href="/tags/Python/" style="font-size: 16.67px;">Python</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/SpringBoot/" style="font-size: 10px;">SpringBoot</a> <a href="/tags/Web/" style="font-size: 16.67px;">Web</a> <a href="/tags/Work/" style="font-size: 13.33px;">Work</a> <a href="/tags/ignite/" style="font-size: 20px;">ignite</a> <a href="/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/tags/机器学习实战/" style="font-size: 16.67px;">机器学习实战</a> <a href="/tags/运维/" style="font-size: 10px;">运维</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2018 理想主义和宅</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'hexo-theme-hueman';
+    
+    
+    var disqus_url = 'http://yoursite.com/2017/08/14/Java注解-学习总结/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
