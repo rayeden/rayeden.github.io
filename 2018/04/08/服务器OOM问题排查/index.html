@@ -21,7 +21,7 @@
 <meta property="og:description" content="OOM最近碰上一起攻击，客户端的服务器被发送了N个500+M大小的空数据包，是从Ignite 的NIO通道传过来，导致客户端分配对应大小的堆内内存直接把应用程序挤爆了。记录一下当时分析OOM的过程。  命令查看进程gc情况，发现80s的时间有663次full gc，而且还在疯狂继续，忘截图了 - -12# 两秒打印一次进程gc情况jstat -gc pid 2000 保存dump文件12# 保存进">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://oq6lqcu6w.bkt.clouddn.com/OOM.png">
-<meta property="og:updated_time" content="2018-06-29T11:42:08.781Z">
+<meta property="og:updated_time" content="2018-08-04T09:47:17.260Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="服务器OOM问题排查">
 <meta name="twitter:description" content="OOM最近碰上一起攻击，客户端的服务器被发送了N个500+M大小的空数据包，是从Ignite 的NIO通道传过来，导致客户端分配对应大小的堆内内存直接把应用程序挤爆了。记录一下当时分析OOM的过程。  命令查看进程gc情况，发现80s的时间有663次full gc，而且还在疯狂继续，忘截图了 - -12# 两秒打印一次进程gc情况jstat -gc pid 2000 保存dump文件12# 保存进">
@@ -140,7 +140,7 @@
                         <div class="main-body-header">
     <h1 class="header">
     
-    <a class="page-title-link" href="/categories/ignite/">ignite</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/ignite/工作总结/">工作总结</a>
+    <a class="page-title-link" href="/categories/工作总结/">工作总结</a>
     </h1>
 </div>
                         <div class="main-body-content">
@@ -212,7 +212,7 @@
 
 
 
-    <a data-url="http://yoursite.com/2018/04/08/服务器OOM问题排查/" data-id="cjkf7jdlx0017nd9ktf95eega" class="article-share-link"><i class="fa fa-share"></i>Compartir</a>
+    <a data-url="http://yoursite.com/2018/04/08/服务器OOM问题排查/" data-id="cjkf98rtk000rnu9k96m9lx7i" class="article-share-link"><i class="fa fa-share"></i>Compartir</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -423,7 +423,7 @@
                         </div>
                         
                         <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/ignite/">ignite</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/ignite/工作总结/">工作总结</a></p>
+                            <p class="item-category"><a class="article-category-link" href="/categories/工作总结/">工作总结</a></p>
                             <p class="item-title"><a href="/2018/04/08/服务器OOM问题排查/" class="title">服务器OOM问题排查</a></p>
                             <p class="item-date"><time datetime="2018-04-08T12:04:50.000Z" itemprop="datePublished">Apr 8 2018</time></p>
                         </div>
@@ -458,7 +458,7 @@
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">categories</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaWeb/">JavaWeb</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ignite/">ignite</a><span class="category-list-count">4</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ignite/工作总结/">工作总结</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/工作总结/">工作总结</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/读书笔记/">读书笔记</a><span class="category-list-count">3</span></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaWeb/">JavaWeb</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ignite/">ignite</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工作总结/">工作总结</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/读书笔记/">读书笔记</a><span class="category-list-count">3</span></li></ul>
         </div>
     </div>
 
@@ -546,6 +546,15 @@
             </div>
         </div>
     </div>
+
+    
+      <script src='https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js'></script>
+      <script>
+        if (window.mermaid) {
+          mermaid.initialize({theme: 'forest'});
+        }
+      </script>
+    
 </footer>
 
         

@@ -12,19 +12,19 @@
     
         <meta name="keywords" content="JDK" />
     
-    <meta name="description" content="JDK版本：1.7 &amp;amp; 1.8简单记录一下">
+    <meta name="description" content="JDK版本：1.7 &amp;amp; 1.8简单记录一下。  hexo尚未支持mermaid，太过分了!">
 <meta name="keywords" content="JDK">
 <meta property="og:type" content="article">
 <meta property="og:title" content="关于HashMap">
 <meta property="og:url" content="http://yoursite.com/2018/08/04/关于HashMap/index.html">
 <meta property="og:site_name" content="One-Way Street">
-<meta property="og:description" content="JDK版本：1.7 &amp;amp; 1.8简单记录一下">
+<meta property="og:description" content="JDK版本：1.7 &amp;amp; 1.8简单记录一下。  hexo尚未支持mermaid，太过分了!">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://oq6lqcu6w.bkt.clouddn.com/360dc1374d0a1f332e25b01d05d474a0.png">
-<meta property="og:updated_time" content="2018-08-04T09:20:13.195Z">
+<meta property="og:updated_time" content="2018-08-04T10:10:25.611Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于HashMap">
-<meta name="twitter:description" content="JDK版本：1.7 &amp;amp; 1.8简单记录一下">
+<meta name="twitter:description" content="JDK版本：1.7 &amp;amp; 1.8简单记录一下。  hexo尚未支持mermaid，太过分了!">
 <meta name="twitter:image" content="http://oq6lqcu6w.bkt.clouddn.com/360dc1374d0a1f332e25b01d05d474a0.png">
     
 
@@ -177,7 +177,7 @@
         
         <div class="article-entry" itemprop="articleBody">
             <p><img src="http://oq6lqcu6w.bkt.clouddn.com/360dc1374d0a1f332e25b01d05d474a0.png" alt="sydney"></p>
-<p>JDK版本：1.7 &amp; 1.8<br>简单记录一下<br><a id="more"></a></p>
+<p>JDK版本：1.7 &amp; 1.8<br>简单记录一下。  <strong>hexo尚未支持mermaid，太过分了!</strong><br><a id="more"></a></p>
 <p>##基本认知</p>
 <blockquote>
 <p>HashMap是基于哈希算法，采用数组和链表组合的方式对数据进行存取的数据结构。<br>HashMap非线程安全，且允许键值为空。</p>
@@ -214,8 +214,32 @@
 </tr>
 </tbody>
 </table>
-<h2 id="JDK1-7"><a href="#JDK1-7" class="headerlink" title="JDK1.7"></a>JDK1.7</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">graph TB</span><br><span class="line">    A[&quot;put(key, value) 存放对象X到Map&quot;] --&gt; B[计算key的hashCode]</span><br><span class="line">    B --&gt; C[根据hashCode在数组中找到对应的位置]</span><br><span class="line">    C --&gt; D&#123;空?&#125;</span><br><span class="line">    D --&gt; |否| E[&quot;调用key的equals()方法&quot;]</span><br><span class="line">    D --&gt; |是| F[把X存在这里]</span><br><span class="line">    E --&gt; H&#123;同一个对象?&#125;</span><br><span class="line">    H --&gt; |是| I[覆盖value]</span><br><span class="line">    H --&gt; |否| J[key.next指向这个对象]</span><br><span class="line">    subgraph &quot;&quot;</span><br><span class="line">    J --&gt; K[&quot;数组该位置覆盖为X(头插法)&quot;]</span><br><span class="line">    end</span><br></pre></td></tr></table></figure>
-<h2 id="JDK1-8"><a href="#JDK1-8" class="headerlink" title="JDK1.8"></a>JDK1.8</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">graph TB</span><br><span class="line">    A[&quot;put(key, value) 存放对象X到Map&quot;] --&gt; B[计算key的hashCode]</span><br><span class="line">    B --&gt; C[根据hashCode在数组中找到对应的位置]</span><br><span class="line">    C --&gt; D&#123;空?&#125;</span><br><span class="line">    D --&gt; |否| E[&quot;调用key的equals()方法&quot;]</span><br><span class="line">    D --&gt; |是| F[把X存在这里]</span><br><span class="line">    E --&gt; H&#123;同一个对象?&#125;</span><br><span class="line">    H --&gt; |是| I[覆盖value]</span><br><span class="line">    H --&gt; |否| J&#123;节点数&gt;8?&#125;</span><br><span class="line">    subgraph &quot;&quot;</span><br><span class="line">    J --&gt; |否| K[&quot;找到链表尾部,插入X(尾插法)&quot;]</span><br><span class="line">    J --&gt; |是| L[&quot;树化链表--红黑树，插入X&quot;]</span><br><span class="line">    end</span><br></pre></td></tr></table></figure>
+<h2 id="JDK1-7"><a href="#JDK1-7" class="headerlink" title="JDK1.7"></a>JDK1.7</h2><pre class="mermaid">graph TB
+    A["put(key, value) 存放对象X到Map"] --> B[计算key的hashCode]
+    B --> C[根据hashCode在数组中找到对应的位置]
+    C --> D{空?}
+    D --> |否| E["调用key的equals()方法"]
+    D --> |是| F[把X存在这里]
+    E --> H{同一个对象?}
+    H --> |是| I[覆盖value]
+    H --> |否| J[key.next指向这个对象]
+    subgraph ""
+    J --> K["数组该位置覆盖为X(头插法)"]
+    end</pre>
+
+<h2 id="JDK1-8"><a href="#JDK1-8" class="headerlink" title="JDK1.8"></a>JDK1.8</h2><pre class="mermaid">graph TB
+    A["put(key, value) 存放对象X到Map"] --> B[计算key的hashCode]
+    B --> C[根据hashCode在数组中找到对应的位置]
+    C --> D{空?}
+    D --> |否| E["调用key的equals()方法"]
+    D --> |是| F[把X存在这里]
+    E --> H{同一个对象?}
+    H --> |是| I[覆盖value]
+    H --> |否| J{节点数>8?}
+    subgraph ""
+    J --> |否| K["找到链表尾部,插入X(尾插法)"]
+    J --> |是| L["树化链表--红黑树，插入X"]
+    end</pre>
 
         </div>
         <footer class="article-footer">
@@ -223,7 +247,7 @@
 
 
 
-    <a data-url="http://yoursite.com/2018/08/04/关于HashMap/" data-id="cjkf7jdlq000qnd9knx4nhvx3" class="article-share-link"><i class="fa fa-share"></i>Compartir</a>
+    <a data-url="http://yoursite.com/2018/08/04/关于HashMap/" data-id="cjkf98rta000anu9kp83bqa1y" class="article-share-link"><i class="fa fa-share"></i>Compartir</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -424,7 +448,7 @@
                         </div>
                         
                         <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/ignite/">ignite</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/ignite/工作总结/">工作总结</a></p>
+                            <p class="item-category"><a class="article-category-link" href="/categories/工作总结/">工作总结</a></p>
                             <p class="item-title"><a href="/2018/04/08/服务器OOM问题排查/" class="title">服务器OOM问题排查</a></p>
                             <p class="item-date"><time datetime="2018-04-08T12:04:50.000Z" itemprop="datePublished">Apr 8 2018</time></p>
                         </div>
@@ -459,7 +483,7 @@
     <div class="widget-wrap widget-list">
         <h3 class="widget-title">categories</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaWeb/">JavaWeb</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ignite/">ignite</a><span class="category-list-count">4</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ignite/工作总结/">工作总结</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/工作总结/">工作总结</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/读书笔记/">读书笔记</a><span class="category-list-count">3</span></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaWeb/">JavaWeb</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ignite/">ignite</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/工作总结/">工作总结</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/读书笔记/">读书笔记</a><span class="category-list-count">3</span></li></ul>
         </div>
     </div>
 
@@ -547,6 +571,15 @@
             </div>
         </div>
     </div>
+
+    
+      <script src='https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js'></script>
+      <script>
+        if (window.mermaid) {
+          mermaid.initialize({theme: 'forest'});
+        }
+      </script>
+    
 </footer>
 
         
